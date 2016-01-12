@@ -171,6 +171,12 @@ func (c *Client) Gauge(name string, value float64, tags []string, rate float64) 
 	return c.send(name, stat, tags, rate)
 }
 
+// SignedGauge updates the value of a metric at a particular time.
+func (c *Client) SignedGauge(name string, value float64, tags []string, rate float64) error {
+        stat := fmt.Sprintf("%+f|g", value)
+        return c.send(name, stat, tags, rate)
+}
+
 // Count tracks how many times something happened per second.
 func (c *Client) Count(name string, value int64, tags []string, rate float64) error {
 	stat := fmt.Sprintf("%d|c", value)
